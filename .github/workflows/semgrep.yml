@@ -1,0 +1,40 @@
+# Semgrep — second-opinion SAST for Blockwise, Phase 0
+# DRAFT — not yet run in the Blockwise repo. Verify on the first push.
+# Semgrep OSS / free platform tier covers up to 10 contributors and
+# 10 repos (checked 2026-11-21). CodeQL default setup is the primary
+# scanner (no workflow file needed — one switch in Settings); this is
+# the second opinion, because the two scanners catch different things.
+# Runs on every push and pull request, plus a weekly scheduled run so
+# new rules also catch old code.
+name: Semgrep
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  schedule:
+    - cron: "0 9 * * 1"
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  semgrep:
+    name: semgrep
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep:latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep ci --sarif --output semgrep.sarif --config auto
+        env:
+          # Optional: add SEMGREP_APP_TOKEN as a repo secret to use the
+          # Semgrep platform (triage, cross-file rules). Without it,
+          # `semgrep ci` still runs the open-source ruleset.
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif

@@ -1,0 +1,22 @@
+# Dependabot — Blockwise Phase 0
+# Free on all GitHub plans. Alerts + security updates are not on by default
+# on older repos, so flip them on in Settings too (see README in this pack).
+# Covers the three ecosystems Blockwise will actually use:
+# npm = Next.js front end, pip = FastAPI service, github-actions = CI itself.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
