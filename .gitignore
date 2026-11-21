@@ -36,3 +36,28 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Next.js
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# Additional package manager files
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing output
+coverage/
+
+# Certificates and keys
+*.pem
+
+# All dotenv files, including names like .env.local and .env.production
+.env*
