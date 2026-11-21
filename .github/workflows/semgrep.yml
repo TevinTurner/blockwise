@@ -27,7 +27,7 @@ jobs:
     container:
       image: semgrep/semgrep:latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: semgrep ci --sarif --output semgrep.sarif --config auto
         env:
           # Optional: add SEMGREP_APP_TOKEN as a repo secret to use the
